@@ -39,7 +39,19 @@ sum_rec:: [Int] -> Int
 sum_rec [] = 0
 sum_rec (x:xs) = x + sum_rec xs
 
+--Sum of list tail recursive
+-- Using accumualtor
+
+sum_t_r:: [Int] -> Int
+sum_t_r input = aux input 0
+    where 
+    aux l acc
+        | null(l) = acc  --We match the empty list to avoid tail and head errors
+        | otherwise = aux (tail l) (acc+head(l))
+
+
+
 --Evens in a list
 
 main:: IO()
-main = print([(x, y) | x <- [1, 2, 3], y <- [1, 2, 3]])
+main = print(sum_t_r ([]))
