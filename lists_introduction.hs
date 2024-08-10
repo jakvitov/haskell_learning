@@ -1,5 +1,6 @@
 module Main where
 import Data.List
+import Data.Tree (flatten)
 
 --Lists lesson
  -- [] empty list
@@ -52,6 +53,19 @@ sum_t_r input = aux input 0
 
 
 --Evens in a list
+--Given a list of Integers, return list of even ones
+even_list:: [Int] -> [Int]
+even_list [] = []
+even_list (x:xs)
+    | (mod x 2 == 0) = x : even_list xs --Append list to rest of the even lists
+    | otherwise = even_list xs
 
+-- Tuples (val, val)
+
+-- Given a list of tuples [(Int, Int)] return a new list [Int] where each value is sum of the given tuples 
+sum_tuples:: [(Int, Int)] -> [Int]
+sum_tuples [] = []
+sum_tuples xs = [ x + y | (x,y) <- xs] --We take the (x,y) tuple from each list and sum it into list of respective sums
+                        --So "var <- list" syntax just loops over the list assigning var to each value 
 main:: IO()
-main = print(sum_t_r ([]))
+main = print(even_list (3:4:7:8:3:2:1:5:5:6:[]))
