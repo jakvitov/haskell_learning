@@ -53,8 +53,12 @@ isAsc lst = aux lst (minBound::Int) --last picked value by the recursion
             | null xs = True        --We finish with an empty list -> all was right
             | otherwise = aux xs x  --Run for the rest of the list with last being changed for x
 
-
-
+--Example solution
+isAsc_ex:: [Int] -> Bool
+isAsc_ex [] = True
+isAsc_ex [x] = True
+isAsc_ex (x:y:xs) =         --We can actually do this?!, okaay (var:var2: ... :varn:xs) -> iterates over n variables in a list
+    (x <= y) && isAsc_ex (y:xs)  --We put y back to test it with the next pair, it becomes x 
 
 test_is_asc::IO()
 test_is_asc = do
