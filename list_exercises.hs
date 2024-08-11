@@ -30,6 +30,14 @@ rmd list = aux list []
             | contains x acc = aux xs acc
             | otherwise = aux xs (acc ++ [x])
 
+--Example solution does not keep order of the doubled items
+--My solution does
+--This was also my first approach to solution
+rmd_solution::(Eq a) => [a] -> [a]
+rmd_solution [] = []
+rmd_solution (x:xs)
+    | contains x xs = rmd_solution xs
+    | otherwise = x: rmd_solution xs
 
 test_contains:: IO()
 test_contains = do 
@@ -58,5 +66,5 @@ test_rmd = do
 
 
 main::IO()
-main = test_rmd
+main = print(rmd_solution [1,2,3,4,5,3])
     
