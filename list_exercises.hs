@@ -39,6 +39,37 @@ rmd_solution (x:xs)
     | contains x xs = rmd_solution xs
     | otherwise = x: rmd_solution xs
 
+
+
+--Exercise 3
+--Create a function isAsc that returns wether given list is in acending order
+
+--My solution
+isAsc:: [Int] -> Bool
+isAsc lst = aux lst (minBound::Int) --last picked value by the recursion
+    where 
+        aux (x:xs) last
+            | x < last = False      --x is smaller than last value -> not ascending
+            | null xs = True        --We finish with an empty list -> all was right
+            | otherwise = aux xs x  --Run for the rest of the list with last being changed for x
+
+
+
+
+test_is_asc::IO()
+test_is_asc = do
+    let first = isAsc [1,2,3,88,19101]
+    let second = isAsc [1]
+    let third = isAsc [1,2,3,4,5,1]
+    let fourth = isAsc [2,1]
+
+    assert (first == True) (print("First test passed"))
+    assert (second == True) (print("Second test passed"))
+    assert (third == False) (print("Third test passed"))
+    assert (fourth == False) (print("Fourth test passed"))
+    print("All passed")
+
+
 test_contains:: IO()
 test_contains = do 
     let first = contains 10 [1,2,3,4,5,10]
@@ -66,5 +97,5 @@ test_rmd = do
 
 
 main::IO()
-main = print(rmd_solution [1,2,3,4,5,3])
+main = test_is_asc
     

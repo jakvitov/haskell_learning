@@ -1,6 +1,5 @@
 module Main where
 import Data.List
-import Data.Tree (flatten)
 
 --Lists lesson
  -- [] empty list

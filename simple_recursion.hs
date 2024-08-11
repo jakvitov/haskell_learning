@@ -1,5 +1,4 @@
 module Main where
-import Data.List
 
 --Recursion lesson
 factorial:: Integer -> Integer
