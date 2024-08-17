@@ -1,5 +1,6 @@
 module Main where
 import Data.List
+import Debug.Trace
 import Control.Exception (assert)
 -- Exersise 1
 -- Implement a function contains, that returns wether given list 
@@ -60,6 +61,43 @@ isAsc_ex [x] = True
 isAsc_ex (x:y:xs) =         --We can actually do this?!, okaay (var:var2: ... :varn:xs) -> iterates over n variables in a list
     (x <= y) && isAsc_ex (y:xs)  --We put y back to test it with the next pair, it becomes x 
 
+--Exercise 4
+--Create function hasPath that: Given directed graph (list of tuples of connected nodes) determines
+--wether path exists from the first node to the second
+
+
+hasPath:: [(Int, Int)] -> Int -> Int -> Bool
+hasPath [] _ _ = False
+
+hasPath arr start end = findPath arr arr start end start
+    where 
+        findPath ((x,y):xs) original start end searching --Searching is the start point in the beginning
+            | searching == y && end == y = True     --We found the path
+            | start == x && end == y = True
+            | searching == x = (findPath xs original start end y) || (findPath original original start end y) || (findPath ((x,y):xs) original start end y) ||(findPath xs original start end searching)
+            --Either find next from the start or in the rest of the current one or find next occurence of x, one must be true to find the path
+            | null xs = False                       --We did not find the path and no more is provided
+            | (y == start && start /= searching) = False                 --We cycled
+            | otherwise = findPath xs original start end searching
+
+
+test_has_path::IO()
+test_has_path = do 
+    let first = hasPath [(1,2), (2,3), (3,4), (4,2)] 4 2
+    let second = hasPath [(1,2), (3,4), (2,4)] 1 4
+    let third = hasPath [(1,2), (2,3), (3,4), (4,2), (5,4)] 1 5
+    let fourth = hasPath [(1,2), (2,3)] 1 3
+    let fifth = hasPath [(1,2), (2,3), (3,4), (4,2)] 4 3
+
+
+    assert (first == True) (print("First test passed"))
+    assert (second == True) (print("Second test passed"))
+    assert (third == False) (print("Third test passed"))
+    assert (fourth == False) (print("Fourth test passed"))
+    assert (fifth == True) (print("Fifth test passed"))
+    print("All passed")
+
+
 test_is_asc::IO()
 test_is_asc = do
     let first = isAsc [1,2,3,88,19101]
@@ -101,5 +139,5 @@ test_rmd = do
 
 
 main::IO()
-main = test_is_asc
+main = test_has_path
     
