@@ -26,6 +26,17 @@ hasPath arr start end = findPath arr arr start end start Data.Set.empty
             | otherwise = findPath xs original start end searching visited
 
 
+--Better signature and performance, saves many stack frames in comparison with mine solution
+--My solution is visibly functionalized procedural search
+--Saves usage of many datastructures
+hasPathExampleSolution:: [(Int, Int)] -> Int -> Int -> Bool
+hasPathExampleSolution [] x y = x == y --This is more of a philosophical question, empty graph does not have any nodes therefore no path shall exist imho
+hasPathExampleSolution xs x y 
+    | x == y = True --We moved to the end and found it, there is no fixed start here
+    | otherwise =
+        let xs' = [(n,m) | (n,m) <- xs, n /= x] in  --Crate xs', which is a list where we remove all starting with current x, to remove possible cycles
+        or [hasPathExampleSolution xs' m y | (n,m) <- xs, n == x]   --Now start search on this list with m as starting point, which is shifted from all possible occurences of x
+        -- Or is applied to list of all results of possible paths
 
 
 test_has_path::IO()
