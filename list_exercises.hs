@@ -71,13 +71,13 @@ hasPath [] _ _ = False
 
 hasPath arr start end = findPath arr arr start end start
     where 
+        findPath [] _ _ _ _ = False
         findPath ((x,y):xs) original start end searching --Searching is the start point in the beginning
             | searching == y && end == y = True     --We found the path
             | start == x && end == y = True
-            | searching == x = (findPath xs original start end y) || (findPath original original start end y) || (findPath ((x,y):xs) original start end y) ||(findPath xs original start end searching)
+            | searching == x = (findPath xs original start end y) || (findPath original original start end y) 
             --Either find next from the start or in the rest of the current one or find next occurence of x, one must be true to find the path
-            | null xs = False                       --We did not find the path and no more is provided
-            | (y == start && start /= searching) = False                 --We cycled
+            | null xs = False                     --We did not find the path and no more is provided
             | otherwise = findPath xs original start end searching
 
 
