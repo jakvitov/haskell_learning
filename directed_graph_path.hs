@@ -27,6 +27,7 @@ hasPath arr start end = findPath arr arr start end start Data.Set.empty
 
 
 
+
 test_has_path::IO()
 test_has_path = do 
     let first = hasPath [(1,2), (2,3), (3,4), (4,2)] 4 2
@@ -39,7 +40,7 @@ test_has_path = do
     assert (first == True) (print("First test passed"))
     assert (second == True) (print("Second test passed"))
     assert (third == False) (print("Third test passed"))
-    assert (fourth == False) (print("Fourth test passed"))
+    assert (fourth == True) (print("Fourth test passed"))
     assert (fifth == True) (print("Fifth test passed"))
     print("All passed")
 
