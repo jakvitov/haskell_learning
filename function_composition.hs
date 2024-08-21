@@ -14,10 +14,14 @@ double x = 2 * x
 --Hell of a name 
 double_add:: Int -> Int
 double_add = double . add --add than double
+--No argument, it is composition of functions, not function calls
 
 --Dollar sign
 --($) :: (a -> b) -> a -> b 
 --Nice way of applying function, more readability
 
+double_add2:: Int -> Int
+double_add2 x = add $ double x  --Dollar helps to reduce ()
+
 main:: IO ()
-main = print(double_add 1)
+main = print(double_add2 1)
