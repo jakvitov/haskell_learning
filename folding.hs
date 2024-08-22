@@ -21,7 +21,17 @@ countTrues inputList = foldr(\elem acc -> if elem == True then (acc+1) else acc)
 
 --foldl 
 --folds left, switch arguments in signature
+--foldl::(a -> b -> c) -> b -> [a] -> b
+--Folds in a driection from a to b (natural way it is written) 
+
+--foldr (-) 8 [2,4,6] = 2-(4-(6-8)) = -4
+--foldl (-) 8 [2,4,6] = 8-2-4-6 = -4
+
+--My made up first thought equivalencies of folding
+flatten_one_lvl::[[a]] -> [a]
+flatten_one_lvl inpt= foldl (++) [] inpt
 
 
 main::IO()
-main = print(sum2 10)
+main = print(flatten_one_lvl_reversed [[1,2], [3,4]])
+
