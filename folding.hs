@@ -33,5 +33,5 @@ flatten_one_lvl inpt= foldl (++) [] inpt
 
 
 main::IO()
-main = print(flatten_one_lvl_reversed [[1,2], [3,4]])
+main = print(flatten_one_lvl [[1,2], [3,4]])
 
