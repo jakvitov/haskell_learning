@@ -1,3 +1,4 @@
+import GHC.Exts.Heap (GenClosure(link))
 
 --Datatypes
 -- data Name = 
@@ -32,6 +33,15 @@ incr = Succ
 decr:: PeaNum -> PeaNum
 decr (Succ n) = n
 
+--My random tries
+
+--Recursive linked list
+data LinkedList t = LNode t (LinkedList t) | End
+ll::LinkedList Int
+ll = LNode 10 $ LNode (20) $ LNode (30)  $ End
+
+linked_list_just :: t -> LinkedList t
+linked_list_just n = LNode n (End)
 
 main::IO()
 main = print()
