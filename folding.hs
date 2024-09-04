@@ -17,7 +17,7 @@ sum2::Int -> Int
 sum2 n = foldr (+) 0 [0..n] 
 
 countTrues :: (Foldable t, Num b) => t Bool -> b
-countTrues inputList = foldr(\elem acc -> if elem == True then (acc+1) else acc) 0 inputList
+countTrues inputList = foldr(\elem acc -> if elem == True then (acc+1) else acc) 0  inputList
 
 --foldl 
 --folds left, switch arguments in signature
