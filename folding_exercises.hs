@@ -67,6 +67,9 @@ lagr_basis_polynomial:: Int -> Float -> Float -> [(Float, Float)] -> Float
 lagr_basis_polynomial j x xj coords= foldl (\acc (index, (cx, _)) -> if index /= j then acc * ((x-cx) / (xj-cx)) else acc
      ) 1.0 (get_indexed coords)
 
+--Can be simplifed by where instead of new function call to lagr_basis_polynomial as in solutions
+-- This function call is quite unpleasant but gives opportunity to reuse the basis polynomial calculations
+
 test_lagrange::IO()
 test_lagrange = do
     let inpt = [(x, sqrt(x)) | x <- [1..10]]
