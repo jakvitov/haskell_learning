@@ -35,9 +35,23 @@ test_length_ll = do
 
 test_from_list::IO()
 test_from_list = do 
+    let empty_llist = from_list []
+    let llist2 = from_list [1..100]
+    print("Running test from_list.")
+    assert(length_ll empty_llist == 0) (print("First passed"))
+    assert(length_ll llist2 == 100) (print("Second passed"))
+
+test_to_list::IO()
+test_to_list = do
     let empty_list = from_list []
-    print()
+    let llist2 = from_list [1..100]
+    print("Running test to_list")
+    assert(length (to_list empty_list) == 0)(print("First passed"))
+    assert(length (to_list empty_list) == 100)(print("Second passed"))
+    
+
 
 main::IO()
 main = do
     test_length_ll
+    test_from_list
