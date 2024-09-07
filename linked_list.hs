@@ -1,22 +1,22 @@
 
 --Implementation of Linked List to practise data classes
-data LinkedList = End | Node Int LinkedList
+data LinkedList a = End | Node a (LinkedList a)
 
-empty :: LinkedList
+empty :: LinkedList a
 empty = End
 
 from_list:: [Int] -> LinkedList
 from_list [] = End
 from_list (x:xs) = Node x $ from_list xs
 
-to_list:: LinkedList -> [Int]
+to_list:: LinkedList a -> [Int]
 to_list End = []
 to_list (Node x rest) = x:to_list(rest)
 
-print_ll:: LinkedList -> IO()
+print_ll:: LinkedList a -> IO()
 print_ll = print . to_list
 
-prepend:: Int -> LinkedList -> LinkedList
+prepend:: Int -> LinkedList a -> LinkedList a
 prepend x  lst = Node x lst
 
 
