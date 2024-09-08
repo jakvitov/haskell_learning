@@ -1,6 +1,7 @@
 import Control.Exception (assert)
+import GHC.Base (IO(IO))
 
---Implementation of Linked List to practise data classes
+--Implementation of Linked List to practise data types
 data LinkedList a = End | Node a (LinkedList a)
 
 empty :: LinkedList a
@@ -23,6 +24,10 @@ print_ll = print . to_list
 
 prepend:: a -> LinkedList a -> LinkedList a
 prepend x lst = Node x lst
+
+append:: a -> LinkedList a -> LinkedList a
+append el End = Node el $ End 
+append el (Node x lst) = Node x $ append el lst
 
 test_length_ll::IO()
 test_length_ll = do
@@ -49,9 +54,19 @@ test_to_list = do
     assert(length (to_list empty_list) == 0)(print("First passed"))
     assert(length (to_list empty_list) == 100)(print("Second passed"))
     
+test_append::IO()
+test_append = do
+    let llst = from_list [1..10]
+    print("Running test append")
+    assert (length_ll llst == 10) (print_ll llst)
+    let llst2 = append 11 llst
+    assert (length_ll llst2 == 11) (print_ll llst2)
 
 
 main::IO()
 main = do
     test_length_ll
     test_from_list
+    test_append
+
+
