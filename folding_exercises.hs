@@ -86,23 +86,20 @@ data Trie a = Leaf a | Node a [Trie a]  --One node can have n child nodes
 -- Input lambda, initial auxiliary b value, given tree and result
 foldtrie:: (b -> a -> b) -> b -> Trie a -> b
 foldtrie lambda aux (Leaf x) = lambda aux x
---foldtrie lambda aux (Node x (child:children)) = foldtrie lambda (lambda aux x) child
 foldtrie lambda aux (Node x children) = foldl (\acc xv -> foldtrie lambda acc xv) (lambda aux x) children
 
---destr_trie acc (Leaf x) = acc ++ [x] 
---destr_trie acc (Node x _) = acc ++ [x]
 
 test_foldtrie:: IO()
 test_foldtrie = do 
     let test_trie = Node 'c' [Node 'a' [Leaf 'r', Leaf 't'], Node 'o' [Node 'o' [Node 'o' [Leaf 'l']]]]
     let res = foldtrie (\acc c -> acc ++ [c]) [] test_trie
-    print(res)
+    assert (res == "cartoool") (print("Foldtrie test passed"))
 
 
 main::IO()
 main = do
-    --test_rev
-    --test_revl
-    --test_prefixes
-    --test_lagrange
+    test_rev
+    test_revl
+    test_prefixes
+    test_lagrange
     test_foldtrie
