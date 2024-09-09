@@ -18,6 +18,11 @@ print_point (D2 x y) = print("[" ++ show x ++ ", " ++ show y ++"]") -- Accessing
 print_point (D3 a b c) = print("[" ++ show a ++ ", " ++ show b ++ ", "++ show c ++"]")
             --Only order of these elements is relevant, not names
 
+--Trivial practise function, reduces dimension 
+convert_to_d2:: Point -> Point
+convert_to_d2 (D2 x y) = D2 x y
+convert_to_d2 (D3 x y z) = D2 x y
+
 main::IO()
 main = do
     let person = Person "John Doe" 53
@@ -26,3 +31,4 @@ main = do
     print(name person) --Accesing an attribute trough auto generated "getter"
     print_point point_d2
     print_point point_d3
+    print_point $ convert_to_d2 point_d3
