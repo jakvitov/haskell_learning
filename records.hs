@@ -12,10 +12,11 @@ data Person = Person {
 
 data Point = D2 {x::Int, y::Int} | D3 {x::Int, y::Int, z::Int}  --Alternative constructors
 
+--Defining a function with record is the same as data type
 print_point:: Point -> IO()
-print_point (D2 x y) = print("[" ++ show x ++ ", " ++ show y ++"]")
-print_point (D3 x y z) = print("[" ++ show x ++ ", " ++ show y ++ ", "++ show z ++"]")
-
+print_point (D2 x y) = print("[" ++ show x ++ ", " ++ show y ++"]") -- Accessing values like with normal data types
+print_point (D3 a b c) = print("[" ++ show a ++ ", " ++ show b ++ ", "++ show c ++"]")
+            --Only order of these elements is relevant, not names
 
 main::IO()
 main = do
