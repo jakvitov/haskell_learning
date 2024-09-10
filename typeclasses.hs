@@ -66,6 +66,16 @@ instance Eq Point where
     (==) :: Point -> Point -> Bool
     (==) (Point x1 y1) (Point x2 y2) = (x1 == x2) && (y1 == y2 ) 
 
+
+-- Deriving keyword
+-- Does auto implementation for typeclasses 
+
+data Rectangle = Rectangle Int Int Int Int
+  deriving (Show, Eq) --We force Haskell to auto implement it
+                      --Derived equivalence may not be implemented correctly
+
+-- !! DERIVED EQUIVALENCE COMPARES THE CONSTRUCTORS !!
+
 main::IO()
 main = do
     let point = Point 40 2
