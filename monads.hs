@@ -62,10 +62,37 @@ doubleNumOrFail (Just x) = Just $ 2*x
 doubleNumOrFail (Nothing) = fail "Value not present"
 --Maybe fail implementation returns nothing
 
--- Function >> 
+-- Function >> sometimes called anonymous bind
 -- (>>) :: m a -> m b -> m b
 
+--Deafult implementation:
+-- m >> n = m >>= (\_ -> n)
+-- We bind m to lamda, which drops the wrapped value
+-- NOTE: If m has implemented bind, that automatically propagates Failiures, then we do not get n but still m
+-- Sucesses do not propagate, but failiures do , depends on the implementation of bind operator
 
+anonymousBind:: Maybe a -> Maybe b -> Maybe b
+anonymousBind x y = x >> y 
+
+--Monad laws
+
+-- Left identity
+-- return a >>= k = k a
+-- returning monad with value a and binding it to function k, should be the same as applying function k to a  
+-- For example Just 5 >>= (\x -> Just $ x+1)  ==  (\x -> Just $ x+1) 5
+
+-- Right identity
+-- m >>= return = m
+-- monad, bound to its return function, must return the monadic value 
+-- Monad, boudn to encapsulation is the same
+
+-- Associativity
+-- Associativity of the bind function
+-- m >>= (\x -> k x >>= h)  ==  (m >>= k) >>= h 
+-- It is irelevant, where we put the parenthesis for the bind operations
+
+doSth :: Num a => p1 -> p2 -> Maybe a
+doSth a = (\x -> Just 5)
 
 main:: IO()
 main = do 
@@ -77,3 +104,5 @@ main = do
     print $ addNumMonads (Right 100) (Left 500) --Propages the Left value (error), cannot add two rights, since there is no inferrence on type Left b
     print $ doubleNumOrFail (Just 20)
     print $ doubleNumOrFail (Nothing)
+    print $ anonymousBind (Nothing) (Just 10) -- Should propagate nothing
+    print $ anonymousBind (Just 50) (Just 10) -- Should return Just 10
